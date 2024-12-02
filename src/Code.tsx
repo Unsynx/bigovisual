@@ -28,6 +28,7 @@ interface CodeData {
     tick: number;
 }
 
+// todo: add line number indicators and fix the styling.
 export function Code(props:CodeData) {
   return (
     <Card>

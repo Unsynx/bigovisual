@@ -25,7 +25,7 @@ function App() {
         </div>
         <div className='side_right'>
           <div className='graph'>
-            <GraphBigO />
+            <GraphBigO n={count} />
           </div>
           <div className='control'>
             <p>Current Step: {count}</p>
