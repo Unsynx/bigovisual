@@ -6,18 +6,30 @@
     background-color: rgb(238, 238, 238);
 }
 
+.code_row {
+    display: flex;
+    padding-right: 1em;
+}
+
+.code_row_num {
+    padding-right: 0.2em;
+    margin-right: 0.3em;
+    padding-left: 0.2em;
+    color: gray;
+}
+
+.highlight {
+    color: white;
+    background: black;
+    border-radius: 5px;
+}
+
 .code_body {
     overflow: scroll;
     display: flex;
-    
 }
 
-.code_indicator_column {
-    background-color: rgb(238, 238, 238);
-}
-
-.indicator {
-    width: 1em;
-    height: 1.5em;
-    background-color: pink;
+.sub_body {
+    border-radius: 6px;
+    border: 1px solid lightgrey;
 }

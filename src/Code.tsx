@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import './Code.css'
+import './index.css'
 import { ReactElement } from "react";
 
 
@@ -16,11 +17,17 @@ var text =
 }`
 var lineCount = text.split('\n').length
 
-function parseCode() {
+function parseCode(nth: number) {
     var result: ReactElement[] = []
-    text.split('\n').forEach(line => {
-        result.push(<pre className="code_row">{line}</pre>)
-    });
+    var lines = text.split('\n')
+    for (var i = 0; i < lines.length; i++) {
+        result.push(
+        <div className="code_row">
+            <p className={`code_row_num ${i + 1 === nth ? 'highlight' : ''}`}>{i}</p>
+            <pre>{lines[i]}</pre>
+        </div>
+        )
+    }
     return result;
 }
 
@@ -34,12 +41,9 @@ export function Code(props:CodeData) {
     <Card>
         <CardHeader>Code Block</CardHeader>
         <CardContent className="code_body">
-            <div className="code_indicator_column">
-                <div className="indicator"
-                style={{marginTop: (props.tick % lineCount) * 24}}
-                />
+            <div className="sub_body">
+                <div>{parseCode(props.tick)}</div>
             </div>
-            <div>{parseCode()}</div>
         </CardContent>
     </Card>
   )
