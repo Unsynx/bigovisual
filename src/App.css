@@ -12,13 +12,16 @@
   flex-grow: 3;
 }
 .side_left {
-  min-width: 25em;
+  min-width: 30em;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 .side_left > * {
   flex-grow: 1;
+  margin: 0 1em 1em 1em
 }
 
 .graph {
