@@ -1,0 +1,23 @@
+.code_row:nth-child(even) {
+    background-color: white;
+}
+
+.code_row:nth-child(odd) {
+    background-color: rgb(238, 238, 238);
+}
+
+.code_body {
+    overflow: scroll;
+    display: flex;
+    
+}
+
+.code_indicator_column {
+    background-color: rgb(238, 238, 238);
+}
+
+.indicator {
+    width: 1em;
+    height: 1.5em;
+    background-color: pink;
+}

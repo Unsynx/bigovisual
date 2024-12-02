@@ -10,8 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { GraphBigO } from './GraphBigO'
-
-
+import { Code } from './Code'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,42 +19,9 @@ function App() {
     <>
       <div className='container_side'>
         <div className='side_left'>
-          <Card>
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
-            </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
-            </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
-            </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
-          </Card>
+          <Code tick={count}></Code>
+          <Code tick={count}></Code>
+          <Code tick={count}></Code>
         </div>
         <div className='side_right'>
           <div className='graph'>
