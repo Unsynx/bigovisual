@@ -1,16 +1,9 @@
 import { useState } from 'react'
 import './App.css'
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import { GraphBigO } from './GraphBigO'
-import { Code } from './Code'
+import { CodeBlock } from './CodeBlock'
+import { LINEAR } from "./lib/codeData";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,9 +12,7 @@ function App() {
     <>
       <div className='container_side'>
         <div className='side_left'>
-          <Code tick={count}></Code>
-          <Code tick={count}></Code>
-          <Code tick={count}></Code>
+          <CodeBlock n={count} codeData={LINEAR}></CodeBlock>
         </div>
         <div className='side_right'>
           <div className='graph'>
