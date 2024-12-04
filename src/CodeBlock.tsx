@@ -1,8 +1,9 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import './Code.css'
-import './index.css'
 import { ReactElement } from "react";
 import { CodeEntry } from "./lib/codeData";
+
+import './Code.css'
+import './index.css'
 
 
 function parseCode(nth: number, text: string, color: string) {

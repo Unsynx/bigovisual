@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import './App.css'
 import { Button } from "@/components/ui/button"
-import { GraphBigO } from './GraphBigO'
+import { ComplexityChart } from './ComplexityChart'
 import { CodeBlock } from './CodeBlock'
-import { LINEAR } from "./lib/codeData";
+import { CONSTANT, LINEAR, SQUARED } from "./lib/codeData";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,10 +13,12 @@ function App() {
       <div className='container_side'>
         <div className='side_left'>
           <CodeBlock n={count} codeData={LINEAR}></CodeBlock>
+          <CodeBlock n={count} codeData={SQUARED}></CodeBlock>
+          <CodeBlock n={count} codeData={CONSTANT}></CodeBlock>
         </div>
         <div className='side_right'>
           <div className='graph'>
-            <GraphBigO n={count} />
+            <ComplexityChart n={count} lines={[LINEAR, SQUARED, CONSTANT]} />
           </div>
           <div className='control'>
             <p>Current Step: {count}</p>
