@@ -10,12 +10,15 @@ function parseCode(highlightedIndex: number, text: string, color: string) {
     var result: ReactElement[] = []
     var lines = text.split('\n')
     for (var i = 0; i < lines.length; i++) {
-        var style = i === highlightedIndex ? {background: color} : {}
+        var backgroundColor = i % 2 == 0 ? "dark" : "light";
+        var style = i === highlightedIndex ? {background: color} : {};
+        
+
         result.push(
-        <div className="code_row">
-            <p className={`code_row_num ${i === highlightedIndex ? 'highlight' : ''}`} style={style}>{i}</p>
-            <pre className="code_line">{lines[i]}</pre>
-        </div>
+        <>
+            <p className={`code_index ${i === highlightedIndex ? 'highlight' : ''}`} style={style}>{i}</p>
+            <pre className={`code_line ${backgroundColor}`}>{lines[i]}</pre>
+        </>
         )
     }
     return result;

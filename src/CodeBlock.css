@@ -1,27 +1,9 @@
-.code_row:nth-child(even) {
+.light {
     background-color: white;
 }
 
-.code_row:nth-child(odd) {
+.dark {
     background-color: rgb(238, 238, 238);
-}
-
-.code_row {
-    display: flex;
-    padding-right: 1em;
-    min-width: 100%;
-    width: fit-content;
-}
-
-.code_line {
-    padding-left: 2em;
-}
-
-.code_row_num {
-    padding-right: 0.2em;
-    margin-right: 0.3em;
-    padding-left: 0.2em;
-    color: gray;
 }
 
 .highlight {
@@ -30,16 +12,27 @@
     border-radius: 5px;
 }
 
-.code_body {
-    display: flex;
-}
-
 .sub_body {
     border-radius: 6px;
     border: 1px solid lightgrey;
 
     overflow: scroll;
-    width: fit-content;
     min-width: 100%;
-    
+
+    display: grid;
+    grid-template-columns: 1em 1fr;
+}
+
+.code_index {
+    position: sticky;
+    left: 0; /* Stick to the left */
+    background: #fff; /* Prevent overlap with background content */
+    z-index: 1; /* Ensure it stays above other content */
+    border-right: 1px solid #ddd; /* Optional styling */
+    padding-left: 0.4em;
+    padding-right: 1em;
+}
+
+.code_line {
+    padding-left: 1em;
 }
