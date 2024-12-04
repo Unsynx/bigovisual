@@ -9,6 +9,7 @@ export interface CodeEntry {
 class FlowGuide {
     entries: FlowGuideEntry[];
     index: number = 0;
+    operations: number = 0;
 
     constructor(list: FlowGuideEntry[]) {
         this.entries = list;
@@ -16,6 +17,7 @@ class FlowGuide {
 
     reset(n: number) {
         this.index = 0;
+        this.operations = 0;
         this.entries.forEach(entry => {
             entry.reset(n);
         })
@@ -26,6 +28,7 @@ class FlowGuide {
             return this.index + 1;
         }
 
+        this.operations++;
         this.index = this.entries[this.index].nextIndex(this.index);
         return this.index;
     }
@@ -44,7 +47,7 @@ class FlowGuideEntry {
         return i + 1;
     }
 
-    reset(n: number) {}
+    reset(n?: number) {}
 }
 
 class FlowGuidePointer extends FlowGuideEntry {
@@ -52,15 +55,27 @@ class FlowGuidePointer extends FlowGuideEntry {
     maxCount: number = 0;
     maxCountFunction: Function;
     targetIndex: number;
+    resetOnTick: FlowGuideEntry[];
 
-    // todo: make maxCount be based on the function what gives the number of evaluations
-    constructor(targetIndex: number, maxCountFunction: Function) {
-        super();
+    constructor(targetIndex: number, maxCountFunction: Function, restEntires?: FlowGuideEntry[]) {
+        super()
+
+        if (typeof restEntires == "undefined") {
+            this.resetOnTick = [];
+        } else {
+            this.resetOnTick = restEntires;
+        }
+
         this.targetIndex = targetIndex;
         this.maxCountFunction = maxCountFunction;
+        
     }
 
-    setMaxCount(n: number) {
+    setMaxCount(n?: number) {
+        if (typeof n == "undefined" ) {
+            return
+        }
+
         this.maxCount = this.maxCountFunction(n);
     }
 
@@ -70,6 +85,10 @@ class FlowGuidePointer extends FlowGuideEntry {
     }
 
     nextIndex(i: number): number {
+        this.resetOnTick.forEach(entry => {
+            entry.reset()
+        })
+
         if (this.count < this.maxCount) {
             this.count++;
             return this.targetIndex;
@@ -88,7 +107,7 @@ export const LINEAR: CodeEntry = {
     color: "hsl(var(--chart-1))",
     code: `def func(n):
     for i in range(n):
-        print(i)`,
+        print()`,
     flowGuide: new FlowGuide([
         new FlowGuideEntry,
         new FlowGuideEntry,
@@ -96,19 +115,27 @@ export const LINEAR: CodeEntry = {
     ]),
     operations_per_n: linear
 }
-/** ≈
+
 function squared(n: number) {
     return n ** 2
 }
 
+
+var pointer = new FlowGuidePointer(2, linear)
 export const SQUARED: CodeEntry = {
     name: "Squared",
     color: "hsl(var(--chart-2))",
-    code: `This
-    is
-    a
-        test
-    yay!`,
+    code: `def func(n):
+    for i in range(n):
+        for j in range(n):
+            print()`,
+    flowGuide: new FlowGuide([
+        new FlowGuideEntry,
+        new FlowGuideEntry,
+        new FlowGuideEntry,
+        pointer,
+        new FlowGuidePointer(1, linear, [pointer])
+    ]),
     operations_per_n: squared
 }
 
@@ -119,12 +146,11 @@ function constant(n: number) {
 export const CONSTANT: CodeEntry = {
     name: "O(1)",
     color: "hsl(var(--chart-3))",
-    code: `This
-    is
-    a
-        test
-    yay!`,
+    code: `def func(n):
+    print()`,
+    flowGuide: new FlowGuide([
+        new FlowGuideEntry,
+        new FlowGuideEntry
+    ]),
     operations_per_n: constant
 }
-
-*/

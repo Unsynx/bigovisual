@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { ComplexityChart } from './ComplexityChart'
 import { CodeBlock } from './CodeBlock'
-import { LINEAR } from "./lib/codeData";
+import { LINEAR, CONSTANT, SQUARED } from "./lib/codeData";
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0),
-        [ticking, setTicking] = useState(true),
+        [ticking, setTicking] = useState(false),
         [tick, setTick] = useState(0);
 
   useEffect(() => {
@@ -20,18 +20,22 @@ function App() {
       <div className='container_side'>
         <div className='side_left'>
           <CodeBlock n={count} tick={tick} codeData={LINEAR}></CodeBlock>
+          <CodeBlock n={count} tick={tick} codeData={CONSTANT}></CodeBlock>
+          <CodeBlock n={count} tick={tick} codeData={SQUARED}></CodeBlock>
         </div>
         <div className='side_right'>
           <div className='graph'>
-            <ComplexityChart n={count} lines={[LINEAR]} />
+            <ComplexityChart n={count} lines={[LINEAR, CONSTANT, SQUARED]} />
           </div>
           <div className='control'>
-            <p>Current Step: {count} Tick: {tick}</p>
+            <p>N: {count} Tick: {tick}</p>
             <div className='button_row'>
-              <Button onClick={() => setCount((count) => count - 1)}>Previous Step</Button>
-              <Button onClick={() => setCount((count) => count + 1)}>Next Step</Button>
-              <Button onClick={() => setCount(() => 100)}>Fast Forward</Button>
+              <Button onClick={() => setCount((count) => count - 1)}>Decrease N -1</Button>
+              <Button onClick={() => setCount((count) => count + 1)}>Increase N +1</Button>
+              <Button onClick={() => setCount((count) => count - 10)}>Decrease N -10</Button>
+              <Button onClick={() => setCount((count) => count + 10)}>Increase N +10</Button>
               <Button onClick={() => setCount(() => 0)}>Reset</Button>
+              <Button onClick={() => setTicking(() => true)}>Run</Button>
             </div>
           </div>
         </div>

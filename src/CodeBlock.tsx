@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { ReactElement } from "react";
 import { CodeEntry } from "./lib/codeData";
 
@@ -37,6 +37,9 @@ export function CodeBlock(props:CodeBlockProps) {
                 <div>{parseCode(props.codeData.flowGuide.tickToIndex(props.tick, props.n), props.codeData.code, props.codeData.color)}</div>
             </div>
         </CardContent>
+        <CardFooter>
+            <p>N = {props.n} | Operations = {props.codeData.flowGuide.operations}</p>
+        </CardFooter>
     </Card>
   )
 }
