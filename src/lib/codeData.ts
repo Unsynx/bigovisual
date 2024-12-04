@@ -22,6 +22,10 @@ class FlowGuide {
     }
 
     tick(): number {
+        if (this.index >= this.entries.length) {
+            return this.index + 1;
+        }
+
         this.index = this.entries[this.index].nextIndex(this.index);
         return this.index;
     }
@@ -82,7 +86,7 @@ export const LINEAR: CodeEntry = {
     flowGuide: new FlowGuide([
         new FlowGuideEntry,
         new FlowGuideEntry,
-        new FlowGuidePointer(1, 100)
+        new FlowGuidePointer(1, 3)
     ]),
     operations_per_n: linear
 }
