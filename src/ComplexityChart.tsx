@@ -1,23 +1,22 @@
 "use client"
 
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card"
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
+  ChartTooltipContent
 } from "@/components/ui/chart"
 import { ReactElement } from "react";
 
 import { CodeEntry } from "./lib/codeData";
+import './ComplexityChart.css'
 
 interface DataPoint {
   n: number,
@@ -70,34 +69,27 @@ interface ComplexityChartProps {
 
 export function ComplexityChart(props:ComplexityChartProps) {
   return (
-    <Card style={{ height: '100%' }}> 
+    <Card className="chart_card"> 
       <CardHeader>
         <CardTitle>Time Complexity</CardTitle>
       </CardHeader>
-      <CardContent>
 
-        <ChartContainer config={getChartConfig(props.lines)} style={{minHeight: 300}}>
+      <CardContent className="graph_container">
+        <p className="y_axis">Operations</p>
+        <ChartContainer className="chart" config={getChartConfig(props.lines)}>
           <LineChart
             accessibilityLayer
-            data={simulateData(props.n, props.lines)}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="number"
-              tickLine={true}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
+            data={simulateData(props.n, props.lines)}>
+            <CartesianGrid vertical={true} />
+            <XAxis/>
+            <YAxis/>
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             {generateLines(props.lines)}
           </LineChart>
         </ChartContainer>
-
+      </CardContent>
+      <CardContent>
+        <p style={{textAlign: "center"}}>N (Array Size)</p>
       </CardContent>
     </Card>
   )
