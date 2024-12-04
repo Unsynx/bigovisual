@@ -125,7 +125,7 @@ var pointer = new FlowGuidePointer(2, linear)
 export const SQUARED: CodeEntry = {
     name: "Squared",
     color: "hsl(var(--chart-2))",
-    code: `def func(n):
+    code: `def func(n): alsdjuhaodihaousdhoasuhdoaushdoaushoudhasoduh
     for i in range(n):
         for j in range(n):
             print()`,

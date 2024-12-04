@@ -9,6 +9,12 @@
 .code_row {
     display: flex;
     padding-right: 1em;
+    min-width: 100%;
+    width: fit-content;
+}
+
+.code_line {
+    padding-left: 2em;
 }
 
 .code_row_num {
@@ -25,11 +31,15 @@
 }
 
 .code_body {
-    overflow: scroll;
     display: flex;
 }
 
 .sub_body {
     border-radius: 6px;
     border: 1px solid lightgrey;
+
+    overflow: scroll;
+    width: fit-content;
+    min-width: 100%;
+    
 }
