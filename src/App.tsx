@@ -3,7 +3,7 @@ import './App.css'
 import { Button } from "@/components/ui/button"
 import { ComplexityChart } from './ComplexityChart'
 import { CodeBlock } from './CodeBlock'
-import { CONSTANT, LINEAR, SQUARED } from "./lib/codeData";
+import { LINEAR } from "./lib/codeData";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,12 +13,10 @@ function App() {
       <div className='container_side'>
         <div className='side_left'>
           <CodeBlock n={count} codeData={LINEAR}></CodeBlock>
-          <CodeBlock n={count} codeData={SQUARED}></CodeBlock>
-          <CodeBlock n={count} codeData={CONSTANT}></CodeBlock>
         </div>
         <div className='side_right'>
           <div className='graph'>
-            <ComplexityChart n={count} lines={[LINEAR, SQUARED, CONSTANT]} />
+            <ComplexityChart n={count} lines={[LINEAR]} />
           </div>
           <div className='control'>
             <p>Current Step: {count}</p>
