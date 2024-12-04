@@ -11,6 +11,7 @@
   width: 100%;
   flex-grow: 3;
 }
+
 .side_left {
   min-width: 30em;
   display: flex;
@@ -22,6 +23,10 @@
 .side_left > * {
   flex-grow: 1;
   margin: 0 1em 1em 1em
+}
+
+.side_left:first-child {
+  margin-top: 1em;
 }
 
 .graph {

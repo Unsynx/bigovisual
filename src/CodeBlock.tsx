@@ -13,13 +13,10 @@ function parseCode(highlightedIndex: number, text: string, color: string) {
         var backgroundColor = i % 2 == 0 ? "dark" : "light";
         var style = i === highlightedIndex ? {background: color} : {};
         
-
-        result.push(
-        <>
+        result.push(<>
             <p className={`code_index ${i === highlightedIndex ? 'highlight' : ''}`} style={style}>{i}</p>
             <pre className={`code_line ${backgroundColor}`}>{lines[i]}</pre>
-        </>
-        )
+        </>)
     }
     return result;
 }
@@ -33,8 +30,8 @@ interface CodeBlockProps {
 
 export function CodeBlock(props:CodeBlockProps) {
   return (
-    <Card>
-        <CardHeader>{props.codeData.name}</CardHeader>
+    <Card className="code_card">
+        <CardHeader className="code_header" style={{background: props.codeData.color}}>{props.codeData.name}</CardHeader>
         <CardContent className="code_body">
             <div className="sub_body">
                 {parseCode(props.codeData.flowGuide.tickToIndex(props.tick, props.n), props.codeData.code, props.codeData.color)}
