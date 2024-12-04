@@ -34,7 +34,7 @@ function App() {
               <Button onClick={() => setCount((count) => count + 1)}>Increase N +1</Button>
               <Button onClick={() => setCount((count) => count - 10)}>Decrease N -10</Button>
               <Button onClick={() => setCount((count) => count + 10)}>Increase N +10</Button>
-              <Button onClick={() => setCount(() => 0)}>Reset</Button>
+              <Button onClick={() => {setTicking(() => false); setTick(() => 0)}}>Reset</Button>
               <Button onClick={() => setTicking(() => true)}>Run</Button>
             </div>
           </div>
