@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import { Button } from "@/components/ui/button"
 import { ComplexityChart } from './ComplexityChart'
 import { CodeBlock } from './CodeBlock'
 import { LINEAR } from "./lib/codeData";
+import './App.css'
 
 function App() {
   const [count, setCount] = useState(0),
@@ -19,7 +19,7 @@ function App() {
     <>
       <div className='container_side'>
         <div className='side_left'>
-          <CodeBlock n={tick} codeData={LINEAR}></CodeBlock>
+          <CodeBlock n={count} tick={tick} codeData={LINEAR}></CodeBlock>
         </div>
         <div className='side_right'>
           <div className='graph'>

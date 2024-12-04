@@ -23,6 +23,7 @@ function parseCode(highlightedIndex: number, text: string, color: string) {
 
 
 interface CodeBlockProps {
+    tick: number;
     n: number;
     codeData: CodeEntry
 }
@@ -33,7 +34,7 @@ export function CodeBlock(props:CodeBlockProps) {
         <CardHeader>{props.codeData.name}</CardHeader>
         <CardContent className="code_body">
             <div className="sub_body">
-                <div>{parseCode(props.codeData.flowGuide.tickToIndex(props.n), props.codeData.code, props.codeData.color)}</div>
+                <div>{parseCode(props.codeData.flowGuide.tickToIndex(props.tick, props.n), props.codeData.code, props.codeData.color)}</div>
             </div>
         </CardContent>
     </Card>

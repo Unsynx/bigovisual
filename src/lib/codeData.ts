@@ -14,10 +14,10 @@ class FlowGuide {
         this.entries = list;
     }
 
-    reset() {
+    reset(n: number) {
         this.index = 0;
         this.entries.forEach(entry => {
-            entry.reset();
+            entry.reset(n);
         })
     }
 
@@ -30,8 +30,8 @@ class FlowGuide {
         return this.index;
     }
 
-    tickToIndex(index: number): number {
-        this.reset()
+    tickToIndex(index: number, n: number): number {
+        this.reset(n)
         for (var i = 0; i < index; i++) {
             this.tick()
         }
@@ -44,22 +44,28 @@ class FlowGuideEntry {
         return i + 1;
     }
 
-    reset() {}
+    reset(n: number) {}
 }
 
 class FlowGuidePointer extends FlowGuideEntry {
     count: number = 0;
-    maxCount: number;
+    maxCount: number = 0;
+    maxCountFunction: Function;
     targetIndex: number;
 
     // todo: make maxCount be based on the function what gives the number of evaluations
-    constructor(targetIndex: number, maxCount: number) {
+    constructor(targetIndex: number, maxCountFunction: Function) {
         super();
         this.targetIndex = targetIndex;
-        this.maxCount = maxCount;
+        this.maxCountFunction = maxCountFunction;
     }
 
-    reset() {
+    setMaxCount(n: number) {
+        this.maxCount = this.maxCountFunction(n);
+    }
+
+    reset(n: number) {
+        this.setMaxCount(n)
         this.count = 0;
     }
 
@@ -86,7 +92,7 @@ export const LINEAR: CodeEntry = {
     flowGuide: new FlowGuide([
         new FlowGuideEntry,
         new FlowGuideEntry,
-        new FlowGuidePointer(1, 3)
+        new FlowGuidePointer(1, linear)
     ]),
     operations_per_n: linear
 }
