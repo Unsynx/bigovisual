@@ -40,12 +40,13 @@
 }
 
 .control {
-  background-color: hsl(var(--secondary));
   width: fit-content auto;
-  margin: 0.1em;
+  margin: 1em 1em 1em 0em;
 }
 
 .button_row {
   margin: 0 auto;
   width: fit-content;
+  display: flex;
+  flex-direction: row;
 }

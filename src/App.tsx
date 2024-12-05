@@ -4,9 +4,10 @@ import { ComplexityChart } from './ComplexityChart'
 import { CodeBlock } from './CodeBlock'
 import { LINEAR, CONSTANT, SQUARED } from "./lib/codeData";
 import './App.css'
+import { Card } from './components/ui/card';
 
 function App() {
-  const [count, setCount] = useState(0),
+  const [count, setCount] = useState(5),
         [ticking, setTicking] = useState(false),
         [tick, setTick] = useState(0);
 
@@ -27,17 +28,18 @@ function App() {
           <div className='graph'>
             <ComplexityChart n={count} lines={[LINEAR, CONSTANT, SQUARED]} />
           </div>
-          <div className='control'>
+          <Card className='control'>
             <p>N: {count} Tick: {tick}</p>
             <div className='button_row'>
-              <Button onClick={() => setCount((count) => count - 1)}>Decrease N -1</Button>
-              <Button onClick={() => setCount((count) => count + 1)}>Increase N +1</Button>
-              <Button onClick={() => setCount((count) => count - 10)}>Decrease N -10</Button>
-              <Button onClick={() => setCount((count) => count + 10)}>Increase N +10</Button>
+              <Button onClick={() => setCount((count) => count - 1)} variant="secondary">-1 N</Button>
+              <Button onClick={() => setCount((count) => count + 1)} variant="secondary">+1 N</Button>
+              <Button onClick={() => setCount((count) => count - 10)} variant="secondary">-10 N</Button>
+              <Button onClick={() => setCount((count) => count + 10)} variant="secondary">+10 N</Button>
+              <div style={{width: "2em"}}/>
+              <Button onClick={() => setTicking(() => true)} >Run</Button>
               <Button onClick={() => {setTicking(() => false); setTick(() => 0)}}>Reset</Button>
-              <Button onClick={() => setTicking(() => true)}>Run</Button>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </>
