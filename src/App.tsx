@@ -16,6 +16,11 @@ function App() {
     return () => clearTimeout(timer);
   }, [tick, ticking]);
 
+  function reset() {
+    setTicking(false); 
+    setTick(0);
+  }
+
   return (
     <>
       <div className='container_side'>
@@ -31,13 +36,13 @@ function App() {
           <Card className='control'>
             <p>N: {count} Tick: {tick}</p>
             <div className='button_row'>
-              <Button onClick={() => setCount((count) => count - 1)} variant="secondary">-1 N</Button>
-              <Button onClick={() => setCount((count) => count + 1)} variant="secondary">+1 N</Button>
-              <Button onClick={() => setCount((count) => count - 10)} variant="secondary">-10 N</Button>
-              <Button onClick={() => setCount((count) => count + 10)} variant="secondary">+10 N</Button>
+              <Button onClick={() => {setCount((count) => count - 1); reset()}} variant="secondary">-1 N</Button>
+              <Button onClick={() => {setCount((count) => count + 1); reset()}} variant="secondary">+1 N</Button>
+              <Button onClick={() => {setCount((count) => count - 10); reset()}} variant="secondary">-10 N</Button>
+              <Button onClick={() => {setCount((count) => count + 10); reset()}} variant="secondary">+10 N</Button>
               <div style={{width: "2em"}}/>
               <Button onClick={() => setTicking(() => true)} >Run</Button>
-              <Button onClick={() => {setTicking(() => false); setTick(() => 0)}}>Reset</Button>
+              <Button onClick={() => reset()}>Reset</Button>
             </div>
           </Card>
         </div>

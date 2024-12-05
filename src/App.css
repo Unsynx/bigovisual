@@ -21,6 +21,22 @@
   overflow-y: scroll;
 }
 
+@media (max-width: 768px) {
+  /* Styles for screens smaller than 768px */
+  .container_side {
+    flex-direction: column-reverse;
+  }
+
+  .side_right, .control {
+    margin-left: 1em;
+  }
+
+  .graph {
+    align-self: center;
+  }
+}
+
+
 .side_left > * {
   flex-grow: 1;
   margin: 0 1em 1em 1em
