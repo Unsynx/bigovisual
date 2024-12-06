@@ -55,7 +55,7 @@ function generateLines(entries: CodeEntry[]) {
       dataKey={entry.name}
       type="monotone"
       stroke={entry.color}
-      strokeWidth={2}
+      strokeWidth={4}
       dot={false}
     />)
   });
@@ -83,7 +83,7 @@ export function ComplexityChart(props:ComplexityChartProps) {
             <CartesianGrid vertical={true} />
             <XAxis/>
             <YAxis/>
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} labelFormatter={() => "Operations"}/>
             {generateLines(props.lines)}
           </LineChart>
         </ChartContainer>
