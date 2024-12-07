@@ -43,7 +43,7 @@
 }
 
 .side_left:first-child {
-  margin-top: 1em;
+  padding-top: 1em;
 }
 
 .graph {
@@ -65,4 +65,13 @@
   width: fit-content;
   display: flex;
   flex-direction: row;
+}
+
+.speed_slider {
+  min-width: 10em;
+}
+
+.tick_speed_data {
+  min-width: fit-content;
+  align-self: center;
 }

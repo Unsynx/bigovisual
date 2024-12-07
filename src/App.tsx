@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
+import { Slider } from "@/components/ui/slider"
 import { ComplexityChart } from './ComplexityChart'
 import { CodeBlock } from './CodeBlock'
 import { LINEAR, CONSTANT, SQUARED } from "./lib/codeData";
@@ -7,18 +8,34 @@ import './App.css'
 import { Card } from './components/ui/card';
 
 function App() {
-  const [count, setCount] = useState(5),
+  const [count, setCount] = useState(0),
         [ticking, setTicking] = useState(false),
-        [tick, setTick] = useState(0);
+        [tick, setTick] = useState(0),
+        [tickSpeed, setTickSpeed] = useState(1e2);
 
   useEffect(() => {
-    const timer = setTimeout(() => ticking && setTick(tick + 1), 1e2);
+    const timer = setTimeout(() => {
+      if (!ticking) { return; }
+
+      setTick(tick + 1)
+
+      if (tickSpeed === 0) {
+        setCount(count + 1)
+      }
+
+      if (SQUARED.operations_per_n(count) < tick) {
+        setCount(count + 1)
+        setTick(0)
+      }
+
+    }, tickSpeed);
     return () => clearTimeout(timer);
   }, [tick, ticking]);
 
   function reset() {
     setTicking(false); 
     setTick(0);
+    setCount(0);
   }
 
   return (
@@ -34,15 +51,13 @@ function App() {
             <ComplexityChart n={count} lines={[LINEAR, CONSTANT, SQUARED]} />
           </div>
           <Card className='control'>
-            <p>N: {count} Tick: {tick}</p>
             <div className='button_row'>
-              <Button onClick={() => {setCount((count) => count - 1); reset()}} variant="secondary">-1 N</Button>
-              <Button onClick={() => {setCount((count) => count + 1); reset()}} variant="secondary">+1 N</Button>
-              <Button onClick={() => {setCount((count) => count - 10); reset()}} variant="secondary">-10 N</Button>
-              <Button onClick={() => {setCount((count) => count + 10); reset()}} variant="secondary">+10 N</Button>
-              <div style={{width: "2em"}}/>
               <Button onClick={() => setTicking(() => true)} >Run</Button>
+              <Button onClick={() => setTicking(() => false)}>Pause</Button>
               <Button onClick={() => reset()}>Reset</Button>
+              <div style={{width: 100}}/>
+              <Slider defaultValue={[1e2]} max={150} step={1} className='speed_slider' onValueChange={(value) => setTickSpeed(value[0])}/>
+              <p className='tick_speed_data'>{tickSpeed}ms / operation</p>
             </div>
           </Card>
         </div>
