@@ -52,4 +52,25 @@
     margin-bottom: 1em;
     font-size: large;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.done_label {
+    margin-top: 0 !important;
+    color: black;
+    background: white;
+    padding: 0.2em 1em 0.2em 0.5em;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.code_title {
+    padding: 0.2em 0 0.2em 0;
 }
