@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react'
+import { ReactElement } from "react";
+
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
-import { ComplexityChart } from './ComplexityChart'
-import { CodeBlock } from './CodeBlock'
-import { CODE_ENTRY_OPTIONS, LINEAR, EXPONENTIAL, CodeEntry } from "./lib/codeData";
-import { ReactElement } from "react";
-import './App.css'
 import { Card } from './components/ui/card';
 import {
   Select,
@@ -14,6 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+
+import { ComplexityChart } from './ComplexityChart'
+import { CodeBlock } from './CodeBlock'
+import './App.css'
+
+import { CODE_ENTRY_OPTIONS, EXPONENTIAL, CodeEntry } from "./lib/codeData";
 
 function setUpDropDown() {
   var result: ReactElement[] = [];
@@ -65,22 +68,27 @@ function App() {
     }
   }
 
+  function getLargestOperationsPerN(): number {
+    var max = 0;
+    entries.forEach((entry) => {
+      var n = entry.operations_per_n(count);
+      if (n > max) { max = n} 
+    })
+    return max
+  }
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!ticking) { return; }
+      if (!ticking) { return; } // pause the simulation
 
       setTick(tick + 1)
 
-      if (tickSpeed === 0) {
-        setCount(count + 1)
-      }
+      if (tickSpeed === 0) { setCount(count + 1) }
 
-      // todo: make this dynamic
-      if (EXPONENTIAL.operations_per_n(count) < tick) {
+      if (getLargestOperationsPerN() < tick) {
         setCount(count + 1)
         setTick(0)
       }
-
     }, tickSpeed);
     return () => clearTimeout(timer);
   }, [tick, ticking]);
