@@ -154,3 +154,28 @@ export const CONSTANT: CodeEntry = {
     ]),
     operations_per_n: constant
 }
+
+function exponential(n: number) {
+    return 2 ** n
+}
+
+export const EXPONENTIAL: CodeEntry = {
+    name: "O(2^n)",
+    color: "hsl(var(--chart-4))",
+    code: `def func(n):
+    for i in range(2**n):
+        print()`,
+    flowGuide: new FlowGuide([
+        new FlowGuideEntry,
+        new FlowGuideEntry,
+        new FlowGuidePointer(1, exponential)
+    ]),
+    operations_per_n: exponential
+}
+
+export const CODE_ENTRY_OPTIONS: { [key: string]: CodeEntry } = {
+    exponential: EXPONENTIAL,
+    constant: CONSTANT,
+    quadratic: SQUARED,
+    linear: LINEAR
+}

@@ -75,3 +75,20 @@
   min-width: fit-content;
   align-self: center;
 }
+
+/* Card block controls */
+
+.code_block_controls {
+  padding: 1em;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.selection {
+  flex-grow: 2;
+  margin-left: 1em;
+}

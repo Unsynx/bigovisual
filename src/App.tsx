@@ -3,15 +3,67 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { ComplexityChart } from './ComplexityChart'
 import { CodeBlock } from './CodeBlock'
-import { LINEAR, CONSTANT, SQUARED } from "./lib/codeData";
+import { CODE_ENTRY_OPTIONS, LINEAR, EXPONENTIAL, CodeEntry } from "./lib/codeData";
+import { ReactElement } from "react";
 import './App.css'
 import { Card } from './components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+function setUpDropDown() {
+  var result: ReactElement[] = [];
+  for (const [key, _] of Object.entries(CODE_ENTRY_OPTIONS)) {
+    result.push(
+      <SelectItem value={key}>{key}</SelectItem>
+    )
+  }
+  return result
+}
+
+function renderEntries(count: number, tick: number, entries: CodeEntry[]) {
+  var result: ReactElement[] = [];
+  for (const [_, value] of Object.entries(entries)) {
+    result.push(
+      <CodeBlock n={count} tick={tick} codeData={value}></CodeBlock>
+    )
+  }
+  return result
+}
 
 function App() {
   const [count, setCount] = useState(0),
         [ticking, setTicking] = useState(false),
         [tick, setTick] = useState(0),
-        [tickSpeed, setTickSpeed] = useState(1e2);
+        [tickSpeed, setTickSpeed] = useState(1e2),
+        [entries, setEntries] = useState<CodeEntry[]>([]),
+        [selectedEntry, setSelectedEntry] = useState<string>();
+
+  function getCodeEntry(name: string) {
+    return CODE_ENTRY_OPTIONS[name];
+  }
+
+  function addEntry(name: string | undefined) {
+    if (name === undefined) { return; }
+    const entry = getCodeEntry(name);
+    if (entries.includes(entry)) { return; }
+    setEntries([...entries, entry])
+  }
+
+  function removeEntry(name: string | undefined) {
+    if (name === undefined) { return; }
+    const entry = getCodeEntry(name);
+    if (entries.includes(entry)) {
+      const index = entries.indexOf(entry)
+      // Create a new array excluding the item at the specified index
+      const copy = [...entries.slice(0, index), ...entries.slice(index + 1)];
+      setEntries(copy)
+    }
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -23,7 +75,8 @@ function App() {
         setCount(count + 1)
       }
 
-      if (SQUARED.operations_per_n(count) < tick) {
+      // todo: make this dynamic
+      if (EXPONENTIAL.operations_per_n(count) < tick) {
         setCount(count + 1)
         setTick(0)
       }
@@ -42,20 +95,28 @@ function App() {
     <>
       <div className='container_side'>
         <div className='side_left'>
-          <CodeBlock n={count} tick={tick} codeData={LINEAR}></CodeBlock>
-          <CodeBlock n={count} tick={tick} codeData={CONSTANT}></CodeBlock>
-          <CodeBlock n={count} tick={tick} codeData={SQUARED}></CodeBlock>
+          <Card className='code_block_controls'>
+            <Button onClick={() => addEntry(selectedEntry)}>Add</Button>
+            <Button style={{marginLeft: "1em"}} onClick={() => removeEntry(selectedEntry)}>Remove</Button>
+            <Select onValueChange={(value) => {setSelectedEntry(value)}}>
+              <SelectTrigger className="selection">
+                <SelectValue placeholder="Select an option" />
+              </SelectTrigger>
+              <SelectContent>{setUpDropDown()}</SelectContent>
+            </Select>
+          </Card>
+          {renderEntries(count, tick, entries)}
         </div>
         <div className='side_right'>
           <div className='graph'>
-            <ComplexityChart n={count} lines={[LINEAR, CONSTANT, SQUARED]} />
+            <ComplexityChart n={count} lines={entries} />
           </div>
           <Card className='control'>
             <div className='button_row'>
               <Button onClick={() => setTicking(() => true)} >Run</Button>
               <Button onClick={() => setTicking(() => false)}>Pause</Button>
               <Button onClick={() => reset()}>Reset</Button>
-              <div style={{width: 100}}/>
+              <div style={{width: 200}}/>
               <Slider defaultValue={[1e2]} max={150} step={1} className='speed_slider' onValueChange={(value) => setTickSpeed(value[0])}/>
               <p className='tick_speed_data'>{tickSpeed}ms / operation</p>
             </div>
