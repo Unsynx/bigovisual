@@ -103,7 +103,7 @@ function linear(n: number) {
 }
 
 export const LINEAR: CodeEntry = {
-    name: "Linear",
+    name: "Linear - O(n)",
     color: "hsl(var(--chart-1))",
     code: `def func(n):
     for i in range(n):
@@ -121,11 +121,11 @@ function squared(n: number) {
 }
 
 
-var pointer = new FlowGuidePointer(2, linear)
-export const SQUARED: CodeEntry = {
-    name: "Squared",
+const pointer = new FlowGuidePointer(2, linear)
+export const QUADRATIC: CodeEntry = {
+    name: "Quadratic - O(n^2)",
     color: "hsl(var(--chart-2))",
-    code: `def func(n): alsdjuhaodihaousdhoasuhdoaushdoaushoudhasoduh
+    code: `def func(n):
     for i in range(n):
         for j in range(n):
             print()`,
@@ -144,7 +144,7 @@ function constant(n: number) {
 }
 
 export const CONSTANT: CodeEntry = {
-    name: "O(1)",
+    name: "Constant - O(1)",
     color: "hsl(var(--chart-3))",
     code: `def func(n):
     print()`,
@@ -160,7 +160,7 @@ function exponential(n: number) {
 }
 
 export const EXPONENTIAL: CodeEntry = {
-    name: "O(2^n)",
+    name: "Exponential - O(2^n)",
     color: "hsl(var(--chart-4))",
     code: `def func(n):
     for i in range(2**n):
@@ -173,9 +173,28 @@ export const EXPONENTIAL: CodeEntry = {
     operations_per_n: exponential
 }
 
+// The log CodeEntry causes then graph to stop working
+function log(n: number) {
+    return Math.ceil(Math.log10(n))
+}
+
+export const LOG: CodeEntry = {
+    name: "Logarithmic - O(log2(n))",
+    color: "hsl(var(--chart-5))",
+    code: `def func(n):
+    for i in range(Math.log2(n)):
+        print()`,
+    flowGuide: new FlowGuide([
+        new FlowGuideEntry,
+        new FlowGuideEntry,
+        new FlowGuidePointer(1, log)
+    ]),
+    operations_per_n: log
+}
+
 export const CODE_ENTRY_OPTIONS: { [key: string]: CodeEntry } = {
-    exponential: EXPONENTIAL,
-    constant: CONSTANT,
-    quadratic: SQUARED,
-    linear: LINEAR
+    Exponential: EXPONENTIAL,
+    Constant: CONSTANT,
+    Quadratic: QUADRATIC,
+    Linear: LINEAR
 }

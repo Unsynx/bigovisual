@@ -105,7 +105,7 @@ function App() {
         <div className='side_left'>
           <Card className='code_block_controls'>
             <Button onClick={() => addEntry(selectedEntry)}>Add</Button>
-            <Button style={{marginLeft: "1em"}} onClick={() => removeEntry(selectedEntry)}>Remove</Button>
+            <Button style={{marginLeft: "0.2em"}} onClick={() => removeEntry(selectedEntry)}>Remove</Button>
             <Select onValueChange={(value) => {setSelectedEntry(value)}}>
               <SelectTrigger className="selection">
                 <SelectValue placeholder="Select an option" />
