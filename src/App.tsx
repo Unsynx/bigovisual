@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
-import { Card } from './components/ui/card';
+import { Card, CardHeader, CardContent, CardTitle } from './components/ui/card';
 import {
   Select,
   SelectContent,
@@ -28,15 +28,7 @@ function setUpDropDown() {
   return result
 }
 
-function renderEntries(count: number, tick: number, entries: CodeEntry[]) {
-  var result: ReactElement[] = [];
-  for (const [_, value] of Object.entries(entries)) {
-    result.push(
-      <CodeBlock n={count} tick={tick} codeData={value}></CodeBlock>
-    )
-  }
-  return result
-}
+
 
 function App() {
   const [count, setCount] = useState(0),
@@ -57,9 +49,15 @@ function App() {
     setEntries([...entries, entry])
   }
 
-  function removeEntry(name: string | undefined) {
+  function removeEntry(name: string | undefined | CodeEntry) {
     if (name === undefined) { return; }
-    const entry = getCodeEntry(name);
+    var entry: CodeEntry;
+    if (typeof name === "string") {
+      entry = getCodeEntry(name);
+    } else {
+      entry = name;
+    }
+    
     if (entries.includes(entry)) {
       const index = entries.indexOf(entry)
       // Create a new array excluding the item at the specified index
@@ -75,6 +73,16 @@ function App() {
       if (n > max) { max = n} 
     })
     return max
+  }
+
+  function renderEntries(count: number, tick: number, entries: CodeEntry[]) {
+    var result: ReactElement[] = [];
+    for (const [_, value] of Object.entries(entries)) {
+      result.push(
+        <CodeBlock n={count} tick={tick} codeData={value} delete_self={removeEntry}></CodeBlock>
+      )
+    }
+    return result
   }
 
   useEffect(() => {
@@ -103,15 +111,19 @@ function App() {
     <>
       <div className='container_side'>
         <div className='side_left'>
-          <Card className='code_block_controls'>
-            <Button onClick={() => addEntry(selectedEntry)}>Add</Button>
-            <Button style={{marginLeft: "0.2em"}} onClick={() => removeEntry(selectedEntry)}>Remove</Button>
-            <Select onValueChange={(value) => {setSelectedEntry(value)}}>
-              <SelectTrigger className="selection">
-                <SelectValue placeholder="Select an option" />
-              </SelectTrigger>
-              <SelectContent>{setUpDropDown()}</SelectContent>
-            </Select>
+          <Card className='add_remove_card'>
+            <CardHeader className='text-xl bold'>
+              <CardTitle>Select a Big O Operations</CardTitle>
+            </CardHeader>
+            <CardContent className='code_block_controls'>
+              <Button onClick={() => addEntry(selectedEntry)}>Add</Button>
+              <Select onValueChange={(value) => {setSelectedEntry(value)}}>
+                <SelectTrigger className="selection">
+                  <SelectValue placeholder="Select an option" />
+                </SelectTrigger>
+                <SelectContent>{setUpDropDown()}</SelectContent>
+              </Select>
+            </CardContent>
           </Card>
           {renderEntries(count, tick, entries)}
         </div>

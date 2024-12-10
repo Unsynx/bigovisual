@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { ReactElement } from "react";
 import { CodeEntry } from "./lib/codeData";
 
@@ -36,7 +37,8 @@ function isDone(operations: number, maxOperations: number) {
 interface CodeBlockProps {
     tick: number;
     n: number;
-    codeData: CodeEntry
+    codeData: CodeEntry,
+    delete_self: Function
 }
 
 export function CodeBlock(props:CodeBlockProps) {
@@ -51,8 +53,9 @@ export function CodeBlock(props:CodeBlockProps) {
                 {parseCode(props.codeData.flowGuide.tickToIndex(props.tick, props.n), props.codeData.code, props.codeData.color)}
             </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="code_block_footer">
             <p>N = {props.n} | Operations = {props.codeData.flowGuide.operations}</p>
+            <Button onClick={() => props.delete_self(props.codeData)} variant="destructive">Delete</Button>
         </CardFooter>
     </Card>
   )
