@@ -143,9 +143,11 @@ function App() {
               <div className='button_row'>
                 <Button onClick={() => setTicking(() => true)} disabled={ticking}>{isLoading(ticking)}Run</Button>
                 <Button onClick={() => setTicking(() => false)} disabled={!ticking}>Pause</Button>
-                <Button onClick={() => reset()}>Reset</Button>
+                <Button onClick={() => reset()} style={{marginRight: "4em"}}>Reset</Button>
+                <Button onClick={() => setCount(() => count - 1)}>-1</Button>
+                <Button onClick={() => setCount(() => count + 1)}>+1</Button>
               </div>
-              <Slider defaultValue={[1e2]} max={150} step={1} className='speed_slider' onValueChange={(value) => setTickSpeed(value[0])}/>
+              <Slider defaultValue={[1e2]} max={300} step={1} className='speed_slider' onValueChange={(value) => setTickSpeed(value[0])}/>
               <p className='tick_speed_data'>{tickSpeed}ms / operation</p>
             </div>
           </Card>

@@ -34,6 +34,14 @@
   .graph {
     align-self: center;
   }
+
+  .button_row_parent {
+    flex-direction: column !important;
+  }
+
+  .speed_slider {
+    margin-top: 1em;
+  }
 }
 
 .side_left > * {
