@@ -57,8 +57,13 @@
 }
 
 .button_row {
-  margin: 0 auto;
+  margin: auto 1em;
   width: fit-content;
+  display: flex;
+  flex-direction: row;
+}
+
+.button_row_parent {
   display: flex;
   flex-direction: row;
 }
@@ -70,6 +75,7 @@
 .tick_speed_data {
   min-width: fit-content;
   align-self: center;
+  margin: 0 1em;
 }
 
 /* Card block controls */

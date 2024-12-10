@@ -16,7 +16,7 @@ import { ComplexityChart } from './ComplexityChart'
 import { CodeBlock } from './CodeBlock'
 import './App.css'
 
-import { CODE_ENTRY_OPTIONS, EXPONENTIAL, CodeEntry } from "./lib/codeData";
+import { CODE_ENTRY_OPTIONS, CodeEntry } from "./lib/codeData";
 import { Loader2 } from 'lucide-react';
 
 function setUpDropDown() {
@@ -139,11 +139,12 @@ function App() {
             <ComplexityChart n={count} lines={entries} />
           </div>
           <Card className='control'>
-            <div className='button_row'>
-              <Button onClick={() => setTicking(() => true)} disabled={ticking}>{isLoading(ticking)}Run</Button>
-              <Button onClick={() => setTicking(() => false)} disabled={!ticking}>Pause</Button>
-              <Button onClick={() => reset()}>Reset</Button>
-              <div style={{width: 200}}/>
+            <div className='button_row_parent'>
+              <div className='button_row'>
+                <Button onClick={() => setTicking(() => true)} disabled={ticking}>{isLoading(ticking)}Run</Button>
+                <Button onClick={() => setTicking(() => false)} disabled={!ticking}>Pause</Button>
+                <Button onClick={() => reset()}>Reset</Button>
+              </div>
               <Slider defaultValue={[1e2]} max={150} step={1} className='speed_slider' onValueChange={(value) => setTickSpeed(value[0])}/>
               <p className='tick_speed_data'>{tickSpeed}ms / operation</p>
             </div>
