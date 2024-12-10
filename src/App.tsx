@@ -17,6 +17,7 @@ import { CodeBlock } from './CodeBlock'
 import './App.css'
 
 import { CODE_ENTRY_OPTIONS, EXPONENTIAL, CodeEntry } from "./lib/codeData";
+import { Loader2 } from 'lucide-react';
 
 function setUpDropDown() {
   var result: ReactElement[] = [];
@@ -27,6 +28,12 @@ function setUpDropDown() {
   }
   return result
 }
+
+function isLoading(state: boolean) {
+  if (state) {
+    return <Loader2 className="animate-spin" />
+  }
+} 
 
 
 
@@ -113,7 +120,7 @@ function App() {
         <div className='side_left'>
           <Card className='add_remove_card'>
             <CardHeader className='text-xl bold'>
-              <CardTitle>Select a Big O Operations</CardTitle>
+              <CardTitle>Select a Big O Operation</CardTitle>
             </CardHeader>
             <CardContent className='code_block_controls'>
               <Button onClick={() => addEntry(selectedEntry)}>Add</Button>
@@ -133,7 +140,7 @@ function App() {
           </div>
           <Card className='control'>
             <div className='button_row'>
-              <Button onClick={() => setTicking(() => true)} disabled={ticking}>Run</Button>
+              <Button onClick={() => setTicking(() => true)} disabled={ticking}>{isLoading(ticking)}Run</Button>
               <Button onClick={() => setTicking(() => false)} disabled={!ticking}>Pause</Button>
               <Button onClick={() => reset()}>Reset</Button>
               <div style={{width: 200}}/>

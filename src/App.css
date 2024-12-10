@@ -36,7 +36,6 @@
   }
 }
 
-
 .side_left > * {
   flex-grow: 1;
   margin: 0 1em 1em 1em
@@ -46,11 +45,6 @@
   padding-top: 1em;
 }
 
-.graph {
-  flex-grow: 3;
-  display: inline-block;
-}
-
 .button_row > * {
   margin: .5em .1em;
 }
@@ -58,6 +52,8 @@
 .control {
   width: fit-content auto;
   margin: 1em 1em 1em 0em;
+  flex-grow: 1;
+  align-content: center;
 }
 
 .button_row {
@@ -77,8 +73,6 @@
 }
 
 /* Card block controls */
-
-
 
 .code_block_controls {
   display: flex;
