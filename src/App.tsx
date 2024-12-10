@@ -133,8 +133,8 @@ function App() {
           </div>
           <Card className='control'>
             <div className='button_row'>
-              <Button onClick={() => setTicking(() => true)} >Run</Button>
-              <Button onClick={() => setTicking(() => false)}>Pause</Button>
+              <Button onClick={() => setTicking(() => true)} disabled={ticking}>Run</Button>
+              <Button onClick={() => setTicking(() => false)} disabled={!ticking}>Pause</Button>
               <Button onClick={() => reset()}>Reset</Button>
               <div style={{width: 200}}/>
               <Slider defaultValue={[1e2]} max={150} step={1} className='speed_slider' onValueChange={(value) => setTickSpeed(value[0])}/>
