@@ -47,7 +47,7 @@ class FlowGuideEntry {
         return i + 1;
     }
 
-    reset(n?: number) {}
+    reset(n?: number) { n; }
 }
 
 class FlowGuidePointer extends FlowGuideEntry {
@@ -140,6 +140,7 @@ export const QUADRATIC: CodeEntry = {
 }
 
 function constant(n: number) {
+    n;
     return 1
 }
 
