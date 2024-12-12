@@ -2,7 +2,7 @@
   "name": "bigovisual",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://big-o.github.io/",
+  "homepage": "https://unsynx.github.io/bigovisual",
   "type": "module",
   "scripts": {
     "dev": "vite",
